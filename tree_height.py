@@ -1,43 +1,47 @@
-#221RDB085 Rudolfs Saukums 12.grupa
 import sys
 import threading
-import numpy
+import numpy as np
 
-def compute_height(n, parents):
-    paren = numpy.zeros(n)
 
-    def height(i):
-        if paren[i] != 0:
-            return paren[i]
+def compute_tree_height(n, parents):
+    height_array = np.zeros(n)
+
+    def compute_node_height(i):
+        if height_array[i] != 0:
+            return height_array[i]
         if parents[i] == -1:
-            paren[i] = 1
+            height_array[i] = 1
         else:
-            paren[i] = height(parents[i]) + 1
-        return paren[i]
+            height_array[i] = compute_node_height(parents[i]) + 1
+        return height_array[i]
 
     for i in range(n):
-        height(i)
-    return int(max(paren))
+        compute_node_height(i)
+
+    return int(max(height_array))
+
 
 def main():
-    mode = input()
-    if mode not in ["F", "I"]:
-        print("Invalid input mode.")
-        return
-    if "F" in mode:
+    input_mode = input()
+    if "F" in input_mode:
         filename = input()
         if "a" not in filename:
-            with open(str("test/" + filename), mode="r") as f:
-                nav = int(f.readline())
-                parent = list(map(int, f.readline().split()))
+            with open(str("test/" + filename), mode="r") as file:
+                n = int(file.readline())
+                parent_nodes = list(map(int, file.readline().split()))
         else:
-            print("error")
-            return
+            print("Error: invalid file name.")
+    elif "I" in input_mode:
+        n = int(input())
+        parent_nodes = list(map(int, input().split()))
     else:
-        nav = int(input())
-        parent = list(map(int, input().split()))
-    print(compute_height(nav, parent))
+        print("Invalid input mode.")
+        return
 
-sys.setrecursionlimit(10 ** 7)  # max depth of recursion
-threading.stack_size(2 ** 27)  # new thread will get stack of such size
+    tree_height = compute_tree_height(n, parent_nodes)
+    print(tree_height)
+
+
+sys.setrecursionlimit(10 ** 7)  # maximum depth of recursion
+threading.stack_size(2 ** 27)  # new thread will get a stack of this size
 threading.Thread(target=main).start()
