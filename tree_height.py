@@ -1,3 +1,4 @@
+#221RDB085 Rudolfs Saukums 12 grupa
 import sys
 import threading
 import numpy as np
@@ -23,7 +24,10 @@ def compute_tree_height(n, parents):
 
 def main():
     input_mode = input()
-    if "F" in input_mode:
+    if "I" in input_mode:
+        n = int(input())
+        parent_nodes = list(map(int, input().split()))
+    elif "F" in input_mode:
         filename = input()
         if "a" not in filename:
             with open(str("test/" + filename), mode="r") as file:
@@ -31,9 +35,6 @@ def main():
                 parent_nodes = list(map(int, file.readline().split()))
         else:
             print("Error: invalid file name.")
-    elif "I" in input_mode:
-        n = int(input())
-        parent_nodes = list(map(int, input().split()))
     else:
         print("Invalid input mode.")
         return
