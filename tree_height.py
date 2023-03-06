@@ -4,7 +4,7 @@ import numpy
 
 
 def compute_height(n, parents):
-    paren = numpy.zeros
+    paren = numpy.zeros[n]
 
     def height(i):
         if paren[i] != 0:
