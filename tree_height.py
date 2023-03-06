@@ -1,3 +1,4 @@
+#221RDB085 Rudolfs Saukums 12.grupa
 import sys
 import threading
 import numpy
