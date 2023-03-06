@@ -1,7 +1,7 @@
+#221RDB085 Rudolfs Saukums 12.grupa
 import sys
 import threading
 import numpy
-
 
 def compute_height(n, parents):
     paren = numpy.zeros(n)
@@ -19,9 +19,11 @@ def compute_height(n, parents):
         height(i)
     return int(max(paren))
 
-
 def main():
     mode = input()
+    if mode not in ["F", "I"]:
+        print("Invalid input mode.")
+        return
     if "F" in mode:
         filename = input()
         if "a" not in filename:
@@ -30,13 +32,11 @@ def main():
                 parent = list(map(int, f.readline().split()))
         else:
             print("error")
-    elif "I" in mode:
+            return
+    else:
         nav = int(input())
         parent = list(map(int, input().split()))
-    else:
-        print("Invalid input mode.")
     print(compute_height(nav, parent))
-
 
 sys.setrecursionlimit(10 ** 7)  # max depth of recursion
 threading.stack_size(2 ** 27)  # new thread will get stack of such size
